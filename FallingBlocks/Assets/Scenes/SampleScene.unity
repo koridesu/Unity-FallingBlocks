@@ -334,10 +334,11 @@ MonoBehaviour:
   - {fileID: 7466541385997156570, guid: 7e5fc68283457f24b975f2dfe7f2bdf3, type: 3}
   pos: {x: 0, y: 0, z: 0}
   rotate: {x: 0, y: 0, z: 0}
-  count: 5
+  count: 2
   i: 0
   startCount: 0
   color: 0
+  deneme: 1
 --- !u!4 &1841475126
 Transform:
   m_ObjectHideFlags: 0
