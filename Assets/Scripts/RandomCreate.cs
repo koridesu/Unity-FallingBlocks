@@ -33,7 +33,6 @@ public class RandomCreate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -59,6 +58,7 @@ public class RandomCreate : MonoBehaviour
         {
             using (System.IO.StreamWriter fs = System.IO.File.AppendText(folderName))
             {
+
                 Vector3 posData = (temp[0].transform.position);
                 Vector3 posData1 = (temp[1].transform.position);
 
@@ -70,7 +70,6 @@ public class RandomCreate : MonoBehaviour
 
                 float anglez = temp[0].transform.localEulerAngles.z;
                 anglez = (anglez > 180) ? anglez - 360 : anglez;
-
 
                 float anglex1 = temp[1].transform.localEulerAngles.x;
                 anglex1 = (anglex1 > 180) ? anglex1 - 360 : anglex1;
@@ -91,6 +90,7 @@ public class RandomCreate : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
+            locker = false; 
             for (int i = 0; i < startCount; i++)
             {
                 Destroy(temp[i]);
