@@ -12,7 +12,7 @@ public class RandomCreate : MonoBehaviour
     public int color;
     static int deneme=1;
     public bool locker;
-    public int frame = 0;
+    public int frame = 0,write=3;
     public string fileName;
     public string folderName;
     
@@ -22,7 +22,8 @@ public class RandomCreate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+          
+
         locker = false;
         startCount = count;
         pos = transform.position;
@@ -38,12 +39,14 @@ public class RandomCreate : MonoBehaviour
         {
             if (!locker)
             {
-                fileName = "BlockData" + deneme + ".txt";
-                folderName = @"C:\Users\admin\Desktop\Blocks";
-                System.IO.Directory.CreateDirectory(folderName);
-                folderName = System.IO.Path.Combine(folderName, fileName);
-                locker = true;
-                deneme++;
+                
+                    fileName = "BlockData" + deneme + ".txt";
+                    folderName = @"C:\Users\admin\Desktop\Blocks";
+                    System.IO.Directory.CreateDirectory(folderName);
+                    folderName = System.IO.Path.Combine(folderName, fileName);
+                    locker = true;
+                    deneme++;
+                
             }
             else { locker = false; }
             if (Time.timeScale == 0)
@@ -54,6 +57,7 @@ public class RandomCreate : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {  locker = false;
         }
+
         if (locker)
         {
             using (System.IO.StreamWriter fs = System.IO.File.AppendText(folderName))
@@ -80,12 +84,34 @@ public class RandomCreate : MonoBehaviour
                 float anglez1 = temp[1].transform.localEulerAngles.z;
                 anglez1 = (anglez > 180) ? anglez1 - 360 : anglez1;
 
-                fs.WriteLine(posData.x + "," + posData.y + "," + posData.z + "   " + anglex + "," + angley + "," + anglez);
+                // fs.WriteLine(posData.x + "," + posData.y + "," + posData.z + "," + anglex + "," + angley + "," + anglez);
+                //  fs.WriteLine(posData1.x + "," + posData1.y + "," + posData1.z + "," + anglex1 + "," + angley1 + "," + anglez1 + "," + "1");
 
-                fs.WriteLine(posData1.x + "," + posData1.y + "," + posData1.z + "    " + anglex1 + "," + angley1 + "," + anglez1);
-                fs.WriteLine("Frame " + frame); frame++;
-            }
-           
+
+
+                if (write == 1)
+                {
+                    fs.WriteLine(posData.x + "," + posData.y + "," + posData.z + "," + anglex + "," + angley + "," + anglez);
+                    write = 2;
+                }
+
+                if (write == 2)
+                {
+                    fs.Write(posData.x + "," + posData.y + "," + posData.z + "," + anglex + "," + angley + "," + anglez +",");
+                    write = 1;
+                }
+
+                if (write == 3)
+                {
+                    fs.WriteLine("X,Y,Z,Rotx,Roty,Rotz,"+"preX,preY,preZ,preRotx,preRoty,preRotz");
+                    fs.Write(posData.x + "," + posData.y + "," + posData.z + "," + anglex + "," + angley + "," + anglez + ",");
+
+                }
+
+                write = 1;
+
+                }
+
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -113,10 +139,7 @@ public class RandomCreate : MonoBehaviour
     }
 
     void Spawn()
-    {
-        Material m;
-        
-
+    {    
         while (count != 0)
         {
             temp.Add(Instantiate(cube[color], pos, transform.rotation));
